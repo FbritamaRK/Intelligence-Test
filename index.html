@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulasi Tes Ketelitian Data - Standar Seleksi Kerja & Psikotes</title>
+  <meta name="description" content="Simulasi interaktif tes ketelitian data (clerical test) standar seleksi lowongan kerja BUMN, Perbankan, CPNS, dan Perusahaan Swasta.">
+  <!-- Inline SVG Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23094eb8'/><text x='50%' y='68%' font-size='60' text-anchor='middle' fill='white' font-family='system-ui'>🎯</text></svg>">
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main class="app-container" id="app-container" role="main">
+
+    <!-- ================= VIEW 1: HOME MENU ================= -->
+    <section class="view-section active" id="view-home" aria-label="Menu Utama">
+      <!-- Header Home -->
+      <header class="app-header">
+        <div class="header-left">
+          <span class="badge-interactive">Simulasi Seleksi Kerja</span>
+          <h1 class="app-title">Simulasi Tes Ketelitian Data</h1>
+        </div>
+        <div class="header-right">
+          <button class="icon-btn btn-toggle-sound" title="Toggle Suara" aria-label="Toggle Suara">🔊</button>
+          <button class="icon-btn btn-open-settings" title="Pengaturan Simulasi" aria-label="Pengaturan">⚙️</button>
+        </div>
+      </header>
+
+      <!-- Isi Home Menu -->
+      <div class="home-container">
+        <div class="home-hero-icon" aria-hidden="true">🎯</div>
+        <h2 class="home-title">Tes Ketelitian &amp; Kecermatan Data</h2>
+        <p class="home-subtitle">
+          Latihan membandingkan kesamaan data dengan cepat dan akurat. Format standar psikotes <strong>BUMN, Perbankan (BCA, Mandiri, BNI, BRI), CPNS, &amp; Perusahaan Swasta</strong>.
+        </p>
+
+        <!-- Quick Config Box -->
+        <div class="home-quick-config">
+          <!-- Jenis Data -->
+          <div class="quick-cfg-row">
+            <label class="quick-cfg-label">
+              <span>Jenis Data Soal</span>
+              <small style="color:var(--primary-blue); font-weight:700;">Klik untuk memilih</small>
+            </label>
+            <div class="option-pills" id="home-pills-type">
+              <label class="pill-radio"><input type="radio" name="home-q-type" value="numeric" checked><span>Angka (0-9)</span></label>
+              <label class="pill-radio"><input type="radio" name="home-q-type" value="alphanumeric"><span>Alfanumerik</span></label>
+              <label class="pill-radio"><input type="radio" name="home-q-type" value="letters"><span>Huruf Acak</span></label>
+              <label class="pill-radio"><input type="radio" name="home-q-type" value="verbal"><span>Nama / Alamat</span></label>
+              <label class="pill-radio"><input type="radio" name="home-q-type" value="mixed"><span>Campuran</span></label>
+            </div>
+          </div>
+
+          <!-- Jumlah Soal -->
+          <div class="quick-cfg-row">
+            <label class="quick-cfg-label">Jumlah Soal</label>
+            <div class="option-pills" id="home-pills-count">
+              <label class="pill-radio"><input type="radio" name="home-q-count" value="5" checked><span>5 Soal</span></label>
+              <label class="pill-radio"><input type="radio" name="home-q-count" value="10"><span>10 Soal</span></label>
+              <label class="pill-radio"><input type="radio" name="home-q-count" value="25"><span>25 Soal</span></label>
+              <label class="pill-radio"><input type="radio" name="home-q-count" value="50"><span>50 Soal</span></label>
+            </div>
+          </div>
+
+          <!-- Batas Waktu Tiap Pengerjaan -->
+          <div class="quick-cfg-row">
+            <label class="quick-cfg-label">
+              <span>Batas Waktu Tiap Pengerjaan</span>
+              <span id="label-active-time" style="color:var(--primary-blue); font-weight:700;">2.0s</span>
+            </label>
+            <div class="option-pills" id="home-pills-time">
+              <label class="pill-radio"><input type="radio" name="home-q-time" value="1.5"><span>1.5 Detik</span></label>
+              <label class="pill-radio"><input type="radio" name="home-q-time" value="2.0" checked><span>2.0 Detik (Standar)</span></label>
+              <label class="pill-radio"><input type="radio" name="home-q-time" value="3.0"><span>3.0 Detik</span></label>
+              <label class="pill-radio"><input type="radio" name="home-q-time" value="5.0"><span>5.0 Detik</span></label>
+            </div>
+
+            <!-- Custom Time Range 1 - 30 Detik -->
+            <div class="custom-time-wrapper">
+              <div class="custom-time-slider-row">
+                <span class="custom-time-badge">Atur Bebas:</span>
+                <input type="range" id="home-custom-time-slider" min="1" max="30" step="0.5" value="2.0" class="custom-slider" aria-label="Slider Waktu Pengerjaan">
+                <div class="custom-time-input-box">
+                  <input type="number" id="home-custom-time-input" min="1" max="30" step="0.5" value="2.0" aria-label="Input Detik">
+                  <span>detik</span>
+                </div>
+              </div>
+              <div class="custom-time-hint">
+                <span>Pilih preset di atas atau geser slider bebas.</span>
+                <span><strong>Maksimal: 30 Detik</strong> (Min: 1s)</span>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Tingkat Kesulitan -->
+          <div class="quick-cfg-row">
+            <label class="quick-cfg-label">Tingkat Kesulitan / Panjang Karakter</label>
+            <div class="option-pills" id="home-pills-diff">
+              <label class="pill-radio"><input type="radio" name="home-q-diff" value="easy"><span>Mudah (5-7 digit)</span></label>
+              <label class="pill-radio"><input type="radio" name="home-q-diff" value="medium" checked><span>Sedang (8-10 digit)</span></label>
+              <label class="pill-radio"><input type="radio" name="home-q-diff" value="hard"><span>Sulit (11-14 digit)</span></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info Cards -->
+        <div class="home-feature-cards">
+          <div class="home-feat-card">
+            <span class="home-feat-icon">⚡</span>
+            <span class="home-feat-title" id="home-card-time">2.0 Detik</span>
+            <span class="home-feat-sub">Batas Waktu/Soal</span>
+          </div>
+          <div class="home-feat-card">
+            <span class="home-feat-icon">🎯</span>
+            <span class="home-feat-title" id="home-card-diff">Sedang (8-10)</span>
+            <span class="home-feat-sub">Tingkat Kesulitan</span>
+          </div>
+          <div class="home-feat-card">
+            <span class="home-feat-icon">⌨️</span>
+            <span class="home-feat-title">1 / S &amp; 2 / T</span>
+            <span class="home-feat-sub">Pintasan Tombol</span>
+          </div>
+        </div>
+
+        <!-- Tombol Utama Mulai Simulasi -->
+        <button class="btn-start-simulation" id="btn-main-start" aria-label="Mulai Simulasi Sekarang">
+          <span class="btn-start-title">🚀 Mulai Simulasi</span>
+          <span class="btn-start-hint">[Tekan Spasi atau Klik untuk Mulai]</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ================= VIEW 2: TEST SIMULATION ================= -->
+    <section class="view-section" id="view-test" aria-label="Area Simulasi">
+      <!-- Header Ujian -->
+      <header class="app-header">
+        <div class="header-left">
+          <span class="badge-interactive" id="badge-interactive">Latihan Interaktif</span>
+          <h1 class="app-title" id="app-title">Simulasi Tes Ketelitian Data</h1>
+        </div>
+        <div class="header-right">
+          <button class="btn-cancel-test" id="btn-cancel-test" title="Batalkan Tes dan Kembali ke Menu Utama" aria-label="Batalkan Tes">
+            <span>❌</span> Batalkan Tes
+          </button>
+          <button class="badge-mode" id="mode-indicator" title="Klik untuk beralih mode" aria-label="Mode Ujian">
+            <span class="mode-dot"></span> Mode Otomatis
+          </button>
+          <button class="icon-btn btn-toggle-sound" title="Toggle Suara" aria-label="Toggle Suara">🔊</button>
+          <button class="icon-btn btn-open-settings" title="Pengaturan Simulasi" aria-label="Pengaturan">⚙️</button>
+        </div>
+      </header>
+
+      <!-- Status Bar (Question & Timer) -->
+      <section class="status-bar" aria-label="Status Ujian">
+        <div class="question-counter-badge" id="question-counter">Soal 1 / 5</div>
+        <div class="timer-box">
+          <span>Sisa Waktu:</span>
+          <span class="timer-val" id="timer-val">2.0s</span>
+        </div>
+      </section>
+
+      <!-- Progress Bar Timer -->
+      <div class="progress-container" aria-hidden="true">
+        <div class="progress-bar-timer" id="timer-progress-bar"></div>
+      </div>
+
+      <!-- Data Comparison Cards Area -->
+      <section class="test-body" id="test-body" aria-label="Area Perbandingan Data">
+        <!-- Data A -->
+        <article class="comparison-card" id="card-data-a">
+          <span class="card-tag">DATA A</span>
+          <div class="card-content" id="data-a-content" aria-label="Konten Data A">8940283719</div>
+        </article>
+
+        <!-- VS Divider -->
+        <div class="vs-divider" aria-hidden="true">
+          <span class="vs-badge">vs</span>
+        </div>
+
+        <!-- Data B -->
+        <article class="comparison-card" id="card-data-b">
+          <span class="card-tag">DATA B</span>
+          <div class="card-content" id="data-b-content" aria-label="Konten Data B">8940283719</div>
+        </article>
+
+        <!-- Action Buttons -->
+        <div class="action-grid" role="group" aria-label="Pilihan Jawaban">
+          <button class="btn-answer btn-sama" id="btn-sama" aria-label="Pilih Sama">
+            <span class="btn-title">SAMA</span>
+            <span class="btn-hint">[Tekan 1 / S]</span>
+          </button>
+
+          <button class="btn-answer btn-tidaksama" id="btn-tidak-sama" aria-label="Pilih Tidak Sama">
+            <span class="btn-title">TIDAK SAMA</span>
+            <span class="btn-hint">[Tekan 2 / T]</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Bottom Hints & Quick Stats -->
+      <footer class="bottom-bar">
+        <div class="shortcut-info">
+          <span>Pintasan:</span>
+          <span class="key-tag">1 / S / ←</span> = Sama &bull;
+          <span class="key-tag">2 / T / →</span> = Beda
+        </div>
+        <div class="quick-stats">
+          <span class="stat-item correct">Benar: <strong id="stat-correct">0</strong></span>
+          <span class="stat-item wrong">Salah: <strong id="stat-wrong">0</strong></span>
+        </div>
+      </footer>
+    </section>
+
+  </main>
+
+  <!-- Settings Modal -->
+  <div class="overlay" id="modal-settings" role="dialog" aria-modal="true" aria-labelledby="settings-heading">
+    <div class="modal-content">
+      <header class="modal-header">
+        <h2 id="settings-heading">Pengaturan Simulasi</h2>
+        <button class="btn-close" id="btn-close-settings" aria-label="Tutup Pengaturan">&times;</button>
+      </header>
+
+      <div class="modal-body">
+        <!-- Jumlah Soal -->
+        <div class="form-group">
+          <label>Jumlah Soal</label>
+          <div class="option-pills">
+            <label class="pill-radio"><input type="radio" name="q-count" value="5" checked><span>5 Soal</span></label>
+            <label class="pill-radio"><input type="radio" name="q-count" value="10"><span>10 Soal</span></label>
+            <label class="pill-radio"><input type="radio" name="q-count" value="25"><span>25 Soal</span></label>
+            <label class="pill-radio"><input type="radio" name="q-count" value="50"><span>50 Soal</span></label>
+          </div>
+        </div>
+
+        <!-- Waktu Per Soal -->
+        <div class="form-group">
+          <label>
+            <span>Batas Waktu Tiap Soal</span>
+            <span id="settings-label-active-time" style="color:var(--primary-blue); font-weight:700;">2.0s</span>
+          </label>
+          <div class="option-pills">
+            <label class="pill-radio"><input type="radio" name="q-time" value="1.5"><span>1.5 Detik</span></label>
+            <label class="pill-radio"><input type="radio" name="q-time" value="2.0" checked><span>2.0 Detik (Standar)</span></label>
+            <label class="pill-radio"><input type="radio" name="q-time" value="3.0"><span>3.0 Detik</span></label>
+            <label class="pill-radio"><input type="radio" name="q-time" value="5.0"><span>5.0 Detik</span></label>
+          </div>
+          <!-- Custom Time Range 1 - 30 Detik in Settings -->
+          <div class="custom-time-wrapper">
+            <div class="custom-time-slider-row">
+              <span class="custom-time-badge">Atur Bebas:</span>
+              <input type="range" id="settings-custom-time-slider" min="1" max="30" step="0.5" value="2.0" class="custom-slider" aria-label="Slider Waktu Pengerjaan">
+              <div class="custom-time-input-box">
+                <input type="number" id="settings-custom-time-input" min="1" max="30" step="0.5" value="2.0" aria-label="Input Detik">
+                <span>detik</span>
+              </div>
+            </div>
+            <div class="custom-time-hint">
+              <span>Bisa diatur bebas <strong>1 s/d 30 detik</strong>.</span>
+              <span><strong>Maksimal: 30s</strong></span>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Tipe Data -->
+        <div class="form-group">
+          <label>Jenis Data Perbandingan</label>
+          <div class="option-pills">
+            <label class="pill-radio"><input type="radio" name="q-type" value="numeric" checked><span>Angka Saja (0-9)</span></label>
+            <label class="pill-radio"><input type="radio" name="q-type" value="alphanumeric"><span>Alfanumerik (Kode/ID)</span></label>
+            <label class="pill-radio"><input type="radio" name="q-type" value="letters"><span>Huruf Acak</span></label>
+            <label class="pill-radio"><input type="radio" name="q-type" value="verbal"><span>Nama &amp; Instansi</span></label>
+            <label class="pill-radio"><input type="radio" name="q-type" value="mixed"><span>Campuran (Realistis)</span></label>
+          </div>
+        </div>
+
+        <!-- Tingkat Kesulitan -->
+        <div class="form-group">
+          <label>Panjang Karakter / Kesulitan</label>
+          <div class="option-pills">
+            <label class="pill-radio"><input type="radio" name="q-diff" value="easy"><span>Mudah (5-7 digit)</span></label>
+            <label class="pill-radio"><input type="radio" name="q-diff" value="medium" checked><span>Sedang (8-10 digit)</span></label>
+            <label class="pill-radio"><input type="radio" name="q-diff" value="hard"><span>Sulit (11-14 digit)</span></label>
+          </div>
+        </div>
+      </div>
+
+      <footer class="modal-footer">
+        <button class="btn-primary" id="btn-save-settings">Terapkan Pengaturan</button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Results Modal -->
+  <div class="overlay" id="modal-results" role="dialog" aria-modal="true" aria-labelledby="results-heading">
+    <div class="modal-content">
+      <header class="modal-header">
+        <h2 id="results-heading">Hasil Evaluasi Ketelitian Data</h2>
+        <button class="btn-close" id="btn-close-results" aria-label="Tutup Hasil">&times;</button>
+      </header>
+
+      <div class="modal-body">
+        <div class="score-hero">
+          <span class="grade-badge grade-a" id="result-grade-badge">Grade A: Sangat Teliti</span>
+          <div class="score-number" id="result-score">100</div>
+          <div class="score-label">Persentase Akurasi (%)</div>
+          <div class="kategori-psikotest" id="result-kategori">Istimewa: Sangat Siap Seleksi Kerja</div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-card-val green" id="result-benar">5</div>
+            <div class="stat-card-lbl">Benar</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-val red" id="result-salah">0</div>
+            <div class="stat-card-lbl">Salah</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-val yellow" id="result-timeout">0</div>
+            <div class="stat-card-lbl">Waktu Habis</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-val" id="result-speed">1.25s</div>
+            <div class="stat-card-lbl">Rata-rata/Soal</div>
+          </div>
+        </div>
+
+        <section class="review-section">
+          <h3>
+            <span>Daftar Review Soal &amp; Analisis Kesalahan</span>
+            <small style="font-weight:normal; font-size:0.75rem; color:#64748b;">(Karakter beda disorot merah)</small>
+          </h3>
+          <div class="review-list" id="review-list"></div>
+        </section>
+      </div>
+
+      <footer class="modal-footer">
+        <button class="btn-secondary" id="btn-result-home">🏠 Menu Utama</button>
+        <button class="btn-secondary" id="btn-retry-wrong" style="display:none;">Ulangi yang Salah</button>
+        <button class="btn-primary" id="btn-restart">Mulai Simulasi Baru</button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Modal Konfirmasi Batalkan Tes -->
+  <div class="overlay" id="modal-confirm-cancel" role="dialog" aria-modal="true" aria-labelledby="cancel-heading">
+    <div class="modal-content" style="max-width: 440px; text-align: center;">
+      <div style="padding: 28px 24px;">
+        <div style="font-size: 2.6rem; margin-bottom: 12px;">⚠️</div>
+        <h2 id="cancel-heading" style="font-size: 1.35rem; color: #0f172a; margin-bottom: 8px;">Batalkan Simulasi?</h2>
+        <p style="color: #64748b; font-size: 0.92rem; line-height: 1.5; margin-bottom: 24px;">
+          Simulasi yang sedang berlangsung akan dihentikan dan progres Anda saat ini tidak akan disimpan.
+        </p>
+        <div style="display: flex; gap: 12px; justify-content: center;">
+          <button class="btn-secondary" id="btn-cancel-no" style="flex: 1; padding: 12px 16px;">Lanjutkan Tes</button>
+          <button class="btn-primary" id="btn-cancel-yes" style="flex: 1; padding: 12px 16px; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">Ya, Batalkan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- JavaScript -->
+  <script src="app.js"></script>
+</body>
+</html>
