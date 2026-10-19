@@ -4,8 +4,9 @@
   "description": "Simulasi Tes Ketelitian Data Psikotes Seleksi Lowongan Kerja BUMN, Perbankan, & CPNS",
   "scripts": {
     "dev": "vite --host --port 8080",
-    "start": "vite --host --port 8080 --open",
-    "preview": "vite preview --host --port 8080"
+    "build": "vite build",
+    "preview": "vite preview --host --port 8080",
+    "start": "vite --host --port 8080 --open"
   },
   "devDependencies": {
     "vite": "^6.2.0"
