@@ -115,20 +115,6 @@ Cukup klik dua kali pada file `index.html` di Windows Explorer dan buka di Googl
   - Tombol **"🏠 Menu Utama"** untuk kembali ke Home Menu kapan saja.
 - **🔊 Efek Suara Interaktif**: Menggunakan *Web Audio API* bawaan (tanpa perlu koneksi internet atau download berkas audio) dengan tombol toggle Suara (🔊/🔇).
 
-
----
-
-## 📂 Struktur File
-
-```text
-├── index.html       # Halaman utama aplikasi (Home Menu & Area Simulasi)
-├── style.css        # Desain CSS modern, layout responsif, animasi, & tema
-├── app.js           # Mesin logika psikotes, timer loop, audio synthesizer, bank soal, & evaluasi
-├── package.json     # Konfigurasi dependensi dan skrip NPM (Vite)
-├── start.bat        # File launcher praktis klik ganda via NPM untuk pengguna Windows
-└── README.md        # Panduan dokumentasi lengkap aplikasi
-```
-
 ---
 
 *Selamat berlatih dan sukses dalam seleksi lowongan kerja!*
