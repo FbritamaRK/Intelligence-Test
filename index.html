@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simulasi Tes Ketelitian Data - Standar Seleksi Kerja & Psikotes</title>
-  <meta name="description" content="Simulasi interaktif tes ketelitian data (clerical test) standar seleksi lowongan kerja BUMN, Perbankan, CPNS, dan Perusahaan Swasta.">
+  <title>Simulasi Tes Psikotes Kerja - Ketelitian Data, Hafalan Kata &amp; Kemampuan Verbal</title>
+  <meta name="description"
+    content="Simulasi interaktif tes psikotes seleksi kerja: Tes Ketelitian Data (Clerical Test), Tes Hafalan Kata (IST Merkaufgaben), dan Tes Kemampuan Verbal (Analogi, Sinonim, Antonim, &amp; Korelasi Makna) standar BUMN, Perbankan, CPNS, dan Swasta.">
   <!-- Inline SVG Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23094eb8'/><text x='50%' y='68%' font-size='60' text-anchor='middle' fill='white' font-family='system-ui'>🎯</text></svg>">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23094eb8'/><text x='50%' y='68%' font-size='60' text-anchor='middle' fill='white' font-family='system-ui'>🎯</text></svg>">
 
   <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap"
+    rel="stylesheet">
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
   <main class="app-container" id="app-container" role="main">
@@ -25,8 +31,8 @@
       <!-- Header Home -->
       <header class="app-header">
         <div class="header-left">
-          <span class="badge-interactive">Simulasi Seleksi Kerja</span>
-          <h1 class="app-title">Simulasi Tes Ketelitian Data</h1>
+          <span class="badge-interactive" id="home-badge-title">Simulasi Seleksi Kerja</span>
+          <h1 class="app-title" id="home-app-title">Simulasi Psikotes Kerja</h1>
         </div>
         <div class="header-right">
           <button class="icon-btn btn-toggle-sound" title="Toggle Suara" aria-label="Toggle Suara">🔊</button>
@@ -34,113 +40,366 @@
         </div>
       </header>
 
+      <!-- Test Category Selector Tabs (3 Tes Unggulan) -->
+      <div class="test-type-nav-wrapper">
+        <nav class="test-type-nav" role="tablist" aria-label="Pilihan Jenis Tes">
+          <button class="test-nav-btn active" id="tab-nav-accuracy" data-test="accuracy" role="tab"
+            aria-selected="true">
+            <span class="nav-btn-icon">🎯</span>
+            <span class="nav-btn-content">
+              <span class="nav-btn-title">Tes Ketelitian</span>
+              <span class="nav-btn-desc">Data A vs Data B</span>
+            </span>
+          </button>
+          <button class="test-nav-btn" id="tab-nav-memory" data-test="memory" role="tab" aria-selected="false">
+            <span class="nav-btn-icon">🧠</span>
+            <span class="nav-btn-content">
+              <span class="nav-btn-title">Hafalan Kata</span>
+              <span class="nav-btn-desc">IST Merkaufgaben</span>
+            </span>
+          </button>
+          <button class="test-nav-btn" id="tab-nav-verbal" data-test="verbal" role="tab" aria-selected="false">
+            <span class="nav-btn-badge">BARU</span>
+            <span class="nav-btn-icon">📚</span>
+            <span class="nav-btn-content">
+              <span class="nav-btn-title">Kemampuan Verbal</span>
+              <span class="nav-btn-desc">Analogi, Sinonim &amp; Antonim</span>
+            </span>
+          </button>
+        </nav>
+      </div>
+
       <!-- Isi Home Menu -->
       <div class="home-container">
-        <div class="home-hero-icon" aria-hidden="true">🎯</div>
-        <h2 class="home-title">Tes Ketelitian &amp; Kecermatan Data</h2>
-        <p class="home-subtitle">
-          Latihan membandingkan kesamaan data dengan cepat dan akurat. Format standar psikotes <strong>BUMN, Perbankan (BCA, Mandiri, BNI, BRI), CPNS, &amp; Perusahaan Swasta</strong>.
-        </p>
 
-        <!-- Quick Config Box -->
-        <div class="home-quick-config">
-          <!-- Jenis Data -->
-          <div class="quick-cfg-row">
-            <label class="quick-cfg-label">
-              <span>Jenis Data Soal</span>
-              <small style="color:var(--primary-blue); font-weight:700;">Klik untuk memilih</small>
-            </label>
-            <div class="option-pills" id="home-pills-type">
-              <label class="pill-radio"><input type="radio" name="home-q-type" value="numeric" checked><span>Angka (0-9)</span></label>
-              <label class="pill-radio"><input type="radio" name="home-q-type" value="alphanumeric"><span>Alfanumerik</span></label>
-              <label class="pill-radio"><input type="radio" name="home-q-type" value="letters"><span>Huruf Acak</span></label>
-              <label class="pill-radio"><input type="radio" name="home-q-type" value="verbal"><span>Nama / Alamat</span></label>
-              <label class="pill-radio"><input type="radio" name="home-q-type" value="mixed"><span>Campuran</span></label>
-            </div>
-          </div>
+        <!-- ================= PANEL A: TES KETELITIAN DATA ================= -->
+        <div class="home-test-panel active" id="home-panel-accuracy">
+          <div class="home-hero-icon" aria-hidden="true">🎯</div>
+          <h2 class="home-title">Tes Ketelitian &amp; Kecermatan Data</h2>
+          <p class="home-subtitle">
+            Latihan membandingkan kesamaan data dengan cepat dan akurat. Format standar psikotes <strong>BUMN, Perbankan
+              (BCA, Mandiri, BNI, BRI), CPNS, &amp; Perusahaan Swasta</strong>.
+          </p>
 
-          <!-- Jumlah Soal -->
-          <div class="quick-cfg-row">
-            <label class="quick-cfg-label">Jumlah Soal</label>
-            <div class="option-pills" id="home-pills-count">
-              <label class="pill-radio"><input type="radio" name="home-q-count" value="5" checked><span>5 Soal</span></label>
-              <label class="pill-radio"><input type="radio" name="home-q-count" value="10"><span>10 Soal</span></label>
-              <label class="pill-radio"><input type="radio" name="home-q-count" value="25"><span>25 Soal</span></label>
-              <label class="pill-radio"><input type="radio" name="home-q-count" value="50"><span>50 Soal</span></label>
-            </div>
-          </div>
-
-          <!-- Batas Waktu Tiap Pengerjaan -->
-          <div class="quick-cfg-row">
-            <label class="quick-cfg-label">
-              <span>Batas Waktu Tiap Pengerjaan</span>
-              <span id="label-active-time" style="color:var(--primary-blue); font-weight:700;">2.0s</span>
-            </label>
-            <div class="option-pills" id="home-pills-time">
-              <label class="pill-radio"><input type="radio" name="home-q-time" value="1.5"><span>1.5 Detik</span></label>
-              <label class="pill-radio"><input type="radio" name="home-q-time" value="2.0" checked><span>2.0 Detik (Standar)</span></label>
-              <label class="pill-radio"><input type="radio" name="home-q-time" value="3.0"><span>3.0 Detik</span></label>
-              <label class="pill-radio"><input type="radio" name="home-q-time" value="5.0"><span>5.0 Detik</span></label>
+          <!-- Quick Config Box (Accuracy) -->
+          <div class="home-quick-config">
+            <!-- Jenis Data -->
+            <div class="quick-cfg-row">
+              <label class="quick-cfg-label">
+                <span>Jenis Data Soal</span>
+                <small style="color:var(--primary-blue); font-weight:700;">Klik untuk memilih</small>
+              </label>
+              <div class="option-pills" id="home-pills-type">
+                <label class="pill-radio"><input type="radio" name="home-q-type" value="numeric" checked><span>Angka
+                    (0-9)</span></label>
+                <label class="pill-radio"><input type="radio" name="home-q-type"
+                    value="alphanumeric"><span>Alfanumerik</span></label>
+                <label class="pill-radio"><input type="radio" name="home-q-type" value="letters"><span>Huruf
+                    Acak</span></label>
+                <label class="pill-radio"><input type="radio" name="home-q-type" value="verbal"><span>Nama /
+                    Alamat</span></label>
+                <label class="pill-radio"><input type="radio" name="home-q-type"
+                    value="mixed"><span>Campuran</span></label>
+              </div>
             </div>
 
-            <!-- Custom Time Range 1 - 30 Detik -->
-            <div class="custom-time-wrapper">
-              <div class="custom-time-slider-row">
-                <span class="custom-time-badge">Atur Bebas:</span>
-                <input type="range" id="home-custom-time-slider" min="1" max="30" step="0.5" value="2.0" class="custom-slider" aria-label="Slider Waktu Pengerjaan">
-                <div class="custom-time-input-box">
-                  <input type="number" id="home-custom-time-input" min="1" max="30" step="0.5" value="2.0" aria-label="Input Detik">
-                  <span>detik</span>
+            <!-- Jumlah Soal -->
+            <div class="quick-cfg-row">
+              <label class="quick-cfg-label">Jumlah Soal</label>
+              <div class="option-pills" id="home-pills-count">
+                <label class="pill-radio"><input type="radio" name="home-q-count" value="5" checked><span>5
+                    Soal</span></label>
+                <label class="pill-radio"><input type="radio" name="home-q-count" value="10"><span>10
+                    Soal</span></label>
+                <label class="pill-radio"><input type="radio" name="home-q-count" value="25"><span>25
+                    Soal</span></label>
+                <label class="pill-radio"><input type="radio" name="home-q-count" value="50"><span>50
+                    Soal</span></label>
+              </div>
+            </div>
+
+            <!-- Batas Waktu Tiap Pengerjaan -->
+            <div class="quick-cfg-row">
+              <label class="quick-cfg-label">
+                <span>Batas Waktu Tiap Pengerjaan</span>
+                <span id="label-active-time" style="color:var(--primary-blue); font-weight:700;">2.0s</span>
+              </label>
+              <div class="option-pills" id="home-pills-time">
+                <label class="pill-radio"><input type="radio" name="home-q-time" value="1.5"><span>1.5
+                    Detik</span></label>
+                <label class="pill-radio"><input type="radio" name="home-q-time" value="2.0" checked><span>2.0 Detik
+                    (Standar)</span></label>
+                <label class="pill-radio"><input type="radio" name="home-q-time" value="3.0"><span>3.0
+                    Detik</span></label>
+                <label class="pill-radio"><input type="radio" name="home-q-time" value="5.0"><span>5.0
+                    Detik</span></label>
+              </div>
+
+              <!-- Custom Time Range 1 - 30 Detik -->
+              <div class="custom-time-wrapper">
+                <div class="custom-time-slider-row">
+                  <span class="custom-time-badge">Atur Bebas:</span>
+                  <input type="range" id="home-custom-time-slider" min="1" max="30" step="0.5" value="2.0"
+                    class="custom-slider" aria-label="Slider Waktu Pengerjaan">
+                  <div class="custom-time-input-box">
+                    <input type="number" id="home-custom-time-input" min="1" max="30" step="0.5" value="2.0"
+                      aria-label="Input Detik">
+                    <span>detik</span>
+                  </div>
+                </div>
+                <div class="custom-time-hint">
+                  <span>Pilih preset di atas atau geser slider bebas.</span>
+                  <span><strong>Maksimal: 30 Detik</strong> (Min: 1s)</span>
                 </div>
               </div>
-              <div class="custom-time-hint">
-                <span>Pilih preset di atas atau geser slider bebas.</span>
-                <span><strong>Maksimal: 30 Detik</strong> (Min: 1s)</span>
+            </div>
+
+            <!-- Tingkat Kesulitan -->
+            <div class="quick-cfg-row">
+              <label class="quick-cfg-label">Tingkat Kesulitan / Panjang Karakter</label>
+              <div class="option-pills" id="home-pills-diff">
+                <label class="pill-radio"><input type="radio" name="home-q-diff" value="easy"><span>Mudah (5-7
+                    digit)</span></label>
+                <label class="pill-radio"><input type="radio" name="home-q-diff" value="medium" checked><span>Sedang
+                    (8-10 digit)</span></label>
+                <label class="pill-radio"><input type="radio" name="home-q-diff" value="hard"><span>Sulit (11-14
+                    digit)</span></label>
               </div>
             </div>
           </div>
 
-
-          <!-- Tingkat Kesulitan -->
-          <div class="quick-cfg-row">
-            <label class="quick-cfg-label">Tingkat Kesulitan / Panjang Karakter</label>
-            <div class="option-pills" id="home-pills-diff">
-              <label class="pill-radio"><input type="radio" name="home-q-diff" value="easy"><span>Mudah (5-7 digit)</span></label>
-              <label class="pill-radio"><input type="radio" name="home-q-diff" value="medium" checked><span>Sedang (8-10 digit)</span></label>
-              <label class="pill-radio"><input type="radio" name="home-q-diff" value="hard"><span>Sulit (11-14 digit)</span></label>
+          <!-- Info Cards -->
+          <div class="home-feature-cards">
+            <div class="home-feat-card">
+              <span class="home-feat-icon">⚡</span>
+              <span class="home-feat-title" id="home-card-time">2.0 Detik</span>
+              <span class="home-feat-sub">Batas Waktu/Soal</span>
+            </div>
+            <div class="home-feat-card">
+              <span class="home-feat-icon">🎯</span>
+              <span class="home-feat-title" id="home-card-diff">Sedang (8-10)</span>
+              <span class="home-feat-sub">Tingkat Kesulitan</span>
+            </div>
+            <div class="home-feat-card">
+              <span class="home-feat-icon">⌨️</span>
+              <span class="home-feat-title">1 / S &amp; 2 / T</span>
+              <span class="home-feat-sub">Pintasan Tombol</span>
             </div>
           </div>
+
+          <!-- Tombol Utama Mulai Simulasi Ketelitian -->
+          <button class="btn-start-simulation" id="btn-main-start" aria-label="Mulai Simulasi Ketelitian Data Sekarang">
+            <span class="btn-start-title">🚀 Mulai Simulasi Ketelitian</span>
+            <span class="btn-start-hint">[Tekan Spasi atau Klik untuk Mulai]</span>
+          </button>
         </div>
 
-        <!-- Info Cards -->
-        <div class="home-feature-cards">
-          <div class="home-feat-card">
-            <span class="home-feat-icon">⚡</span>
-            <span class="home-feat-title" id="home-card-time">2.0 Detik</span>
-            <span class="home-feat-sub">Batas Waktu/Soal</span>
+        <!-- ================= PANEL B: PSIKOTES HAFALAN KATA ================= -->
+        <div class="home-test-panel" id="home-panel-memory">
+          <div class="home-hero-icon memory-icon-glow" aria-hidden="true">🧠</div>
+          <h2 class="home-title">Psikotes Hafalan Kata (IST ME)</h2>
+          <p class="home-subtitle">
+            Uji daya ingat dan memori jangka pendek standar seleksi <strong>BUMN, Perbankan, TNI/Polri, &amp;
+              CPNS</strong>. Hafalkan kategori kata, lalu tentukan kategori kata dari huruf awalannya.
+          </p>
+
+          <!-- Quick Config Box (Memory) -->
+          <div class="home-quick-config">
+            <!-- Paket Hafalan Kata -->
+            <div class="quick-cfg-row">
+              <label class="quick-cfg-label">
+                <span>Daftar Kategori &amp; Kata</span>
+                <span class="badge-set-tag">Standar IST Asli</span>
+              </label>
+              <div class="option-pills" id="home-mem-pills-set">
+                <label class="pill-radio"><input type="radio" name="home-mem-set" value="set1" checked><span>Set 1:
+                    Standar IST (Bunga, Perkakas, Burung, Kesenian, Binatang)</span></label>
+                <label class="pill-radio"><input type="radio" name="home-mem-set" value="set2"><span>Set 2: IST
+                    Alternatif (Buah, Kendaraan, Profesi, Kota, Alat Musik)</span></label>
+              </div>
+            </div>
+
+            <!-- Waktu Menghafal (Tahap 1) -->
+            <div class="quick-cfg-row">
+              <label class="quick-cfg-label">
+                <span>Waktu Menghafal (Tahap 1)</span>
+                <span id="label-active-studytime" style="color:var(--primary-blue); font-weight:700;">5 Menit</span>
+              </label>
+              <div class="option-pills" id="home-mem-pills-studytime">
+                <label class="pill-radio"><input type="radio" name="home-mem-studytime" value="60"><span>1 Menit
+                    (Kilat)</span></label>
+                <label class="pill-radio"><input type="radio" name="home-mem-studytime" value="120"><span>2
+                    Menit</span></label>
+                <label class="pill-radio"><input type="radio" name="home-mem-studytime" value="180"><span>3 Menit
+                    (Standar)</span></label>
+                <label class="pill-radio"><input type="radio" name="home-mem-studytime" value="300" checked><span>5
+                    Menit</span></label>
+                <label class="pill-radio"><input type="radio" name="home-mem-studytime" value="0"><span>Bebas / Tanpa
+                    Batas</span></label>
+              </div>
+            </div>
+
+            <!-- Waktu Tiap Soal (Tahap 2) -->
+            <div class="quick-cfg-row">
+              <label class="quick-cfg-label">
+                <span>Waktu Tiap Pengerjaan Soal (Tahap 2)</span>
+                <span id="label-active-mem-qtime" style="color:var(--primary-blue); font-weight:700;">8.0s</span>
+              </label>
+              <div class="option-pills" id="home-mem-pills-qtime">
+                <label class="pill-radio"><input type="radio" name="home-mem-qtime" value="3"><span>3 Detik
+                    (Kilat)</span></label>
+                <label class="pill-radio"><input type="radio" name="home-mem-qtime" value="5"><span>5 Detik
+                    (Cepat)</span></label>
+                <label class="pill-radio"><input type="radio" name="home-mem-qtime" value="8" checked><span>8 Detik
+                    (Standar)</span></label>
+                <label class="pill-radio"><input type="radio" name="home-mem-qtime" value="15"><span>15 Detik
+                    (Santai)</span></label>
+                <label class="pill-radio"><input type="radio" name="home-mem-qtime" value="0"><span>Tanpa
+                    Batas</span></label>
+              </div>
+            </div>
+
+            <!-- Jumlah Soal -->
+            <div class="quick-cfg-row">
+              <label class="quick-cfg-label">Jumlah Soal Pengerjaan</label>
+              <div class="option-pills" id="home-mem-pills-count">
+                <label class="pill-radio"><input type="radio" name="home-mem-count" value="10"><span>10
+                    Soal</span></label>
+                <label class="pill-radio"><input type="radio" name="home-mem-count" value="15"><span>15
+                    Soal</span></label>
+                <label class="pill-radio"><input type="radio" name="home-mem-count" value="20" checked><span>20 Soal
+                    (Standar IST)</span></label>
+                <label class="pill-radio"><input type="radio" name="home-mem-count" value="23"><span>23 Soal (Semua
+                    Huruf)</span></label>
+              </div>
+            </div>
           </div>
-          <div class="home-feat-card">
-            <span class="home-feat-icon">🎯</span>
-            <span class="home-feat-title" id="home-card-diff">Sedang (8-10)</span>
-            <span class="home-feat-sub">Tingkat Kesulitan</span>
+
+          <!-- Info Cards Memory -->
+          <div class="home-feature-cards">
+            <div class="home-feat-card">
+              <span class="home-feat-icon">📖</span>
+              <span class="home-feat-title" id="home-card-studytime">5 Menit</span>
+              <span class="home-feat-sub">Waktu Hafalan</span>
+            </div>
+            <div class="home-feat-card">
+              <span class="home-feat-icon">⚡</span>
+              <span class="home-feat-title" id="home-card-mem-qtime">8.0 Detik</span>
+              <span class="home-feat-sub">Waktu Tiap Soal</span>
+            </div>
+            <div class="home-feat-card">
+              <span class="home-feat-icon">⌨️</span>
+              <span class="home-feat-title">A - E / 1 - 5</span>
+              <span class="home-feat-sub">Pilihan Jawaban</span>
+            </div>
           </div>
-          <div class="home-feat-card">
-            <span class="home-feat-icon">⌨️</span>
-            <span class="home-feat-title">1 / S &amp; 2 / T</span>
-            <span class="home-feat-sub">Pintasan Tombol</span>
-          </div>
+
+          <!-- Tombol Utama Mulai Psikotes Hafalan Kata -->
+          <button class="btn-start-simulation btn-start-purple" id="btn-main-start-memory"
+            aria-label="Mulai Tes Hafalan Kata Sekarang">
+            <span class="btn-start-title">🚀 Mulai Tes Hafalan Kata</span>
+            <span class="btn-start-hint">[Tekan Spasi atau Klik untuk Masuk Lembar Hafalan]</span>
+          </button>
         </div>
 
-        <!-- Tombol Utama Mulai Simulasi -->
-        <button class="btn-start-simulation" id="btn-main-start" aria-label="Mulai Simulasi Sekarang">
-          <span class="btn-start-title">🚀 Mulai Simulasi</span>
-          <span class="btn-start-hint">[Tekan Spasi atau Klik untuk Mulai]</span>
-        </button>
+        <!-- ================= PANEL C: TES KEMAMPUAN VERBAL ================= -->
+        <div class="home-test-panel" id="home-panel-verbal">
+          <div class="home-hero-icon verbal-icon-glow" aria-hidden="true">📚</div>
+          <h2 class="home-title">Tes Kemampuan Verbal (TPA / Psikotes)</h2>
+          <p class="home-subtitle">
+            Uji perbendaharaan kata, analogi, korelasi makna, sinonim, &amp; antonim standar seleksi <strong>BUMN,
+              Perbankan, CPNS, &amp; Kedinasan</strong>.
+          </p>
+
+          <!-- Quick Config Box (Verbal) -->
+          <div class="home-quick-config">
+            <!-- Pilihan Subtes Verbal -->
+            <div class="quick-cfg-row">
+              <label class="quick-cfg-label">
+                <span>Kategori Soal Verbal</span>
+                <span class="badge-set-tag badge-tag-emerald">Standar TPA / BUMN</span>
+              </label>
+              <div class="option-pills" id="home-verbal-pills-subtest">
+                <label class="pill-radio"><input type="radio" name="home-verbal-subtest" value="all" checked><span>🔀
+                    Campuran (Semua Tipe)</span></label>
+                <label class="pill-radio"><input type="radio" name="home-verbal-subtest" value="analogi"><span>🔗
+                    Analogi Kata</span></label>
+                <label class="pill-radio"><input type="radio" name="home-verbal-subtest" value="sinonim"><span>↔️
+                    Sinonim (Persamaan Kata)</span></label>
+                <label class="pill-radio"><input type="radio" name="home-verbal-subtest" value="antonim"><span>⚔️
+                    Antonim (Lawan Kata)</span></label>
+                <label class="pill-radio"><input type="radio" name="home-verbal-subtest" value="korelasi"><span>🧩
+                    Korelasi Makna &amp; Hubungan</span></label>
+              </div>
+            </div>
+
+            <!-- Jumlah Soal Verbal -->
+            <div class="quick-cfg-row">
+              <label class="quick-cfg-label">Jumlah Soal Pengerjaan</label>
+              <div class="option-pills" id="home-verbal-pills-count">
+                <label class="pill-radio"><input type="radio" name="home-verbal-count" value="8"><span>8
+                    Soal</span></label>
+                <label class="pill-radio"><input type="radio" name="home-verbal-count" value="15" checked><span>15
+                    Soal</span></label>
+                <label class="pill-radio"><input type="radio" name="home-verbal-count" value="25"><span>25 Soal (Standar
+                    TPA)</span></label>
+                <label class="pill-radio"><input type="radio" name="home-verbal-count" value="40"><span>40 Soal
+                    (Lengkap)</span></label>
+              </div>
+            </div>
+
+            <!-- Batas Waktu Tiap Soal Verbal -->
+            <div class="quick-cfg-row">
+              <label class="quick-cfg-label">
+                <span>Batas Waktu Tiap Soal</span>
+                <span id="label-active-verbal-time"
+                  style="color:var(--accent-emerald-dark); font-weight:700;">15.0s</span>
+              </label>
+              <div class="option-pills" id="home-verbal-pills-time">
+                <label class="pill-radio"><input type="radio" name="home-verbal-time" value="10"><span>10 Detik
+                    (Cepat)</span></label>
+                <label class="pill-radio"><input type="radio" name="home-verbal-time" value="15" checked><span>15 Detik
+                    (Standar)</span></label>
+                <label class="pill-radio"><input type="radio" name="home-verbal-time" value="25"><span>25 Detik
+                    (Santai)</span></label>
+                <label class="pill-radio"><input type="radio" name="home-verbal-time" value="0"><span>Bebas (Tanpa
+                    Batas)</span></label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Info Cards Verbal -->
+          <div class="home-feature-cards">
+            <div class="home-feat-card">
+              <span class="home-feat-icon">🔗</span>
+              <span class="home-feat-title" id="home-card-verbal-type">Campuran</span>
+              <span class="home-feat-sub">Kategori Soal</span>
+            </div>
+            <div class="home-feat-card">
+              <span class="home-feat-icon">⚡</span>
+              <span class="home-feat-title" id="home-card-verbal-time">15.0 Detik</span>
+              <span class="home-feat-sub">Waktu / Soal</span>
+            </div>
+            <div class="home-feat-card">
+              <span class="home-feat-icon">⌨️</span>
+              <span class="home-feat-title">A - D / 1 - 4</span>
+              <span class="home-feat-sub">Pilihan Jawaban</span>
+            </div>
+          </div>
+
+          <!-- Tombol Utama Mulai Tes Verbal -->
+          <button class="btn-start-simulation btn-start-emerald" id="btn-main-start-verbal"
+            aria-label="Mulai Tes Kemampuan Verbal Sekarang">
+            <span class="btn-start-title">🚀 Mulai Tes Kemampuan Verbal</span>
+            <span class="btn-start-hint">[Tekan Spasi atau Klik untuk Mulai Latihan]</span>
+          </button>
+        </div>
+
       </div>
     </section>
 
-    <!-- ================= VIEW 2: TEST SIMULATION ================= -->
-    <section class="view-section" id="view-test" aria-label="Area Simulasi">
+    <!-- ================= VIEW 2: ACCURACY TEST SIMULATION ================= -->
+    <section class="view-section" id="view-test" aria-label="Area Simulasi Ketelitian">
       <!-- Header Ujian -->
       <header class="app-header">
         <div class="header-left">
@@ -148,7 +407,8 @@
           <h1 class="app-title" id="app-title">Simulasi Tes Ketelitian Data</h1>
         </div>
         <div class="header-right">
-          <button class="btn-cancel-test" id="btn-cancel-test" title="Batalkan Tes dan Kembali ke Menu Utama" aria-label="Batalkan Tes">
+          <button class="btn-cancel-test" id="btn-cancel-test" title="Batalkan Tes dan Kembali ke Menu Utama"
+            aria-label="Batalkan Tes">
             <span>❌</span> Batalkan Tes
           </button>
           <button class="badge-mode" id="mode-indicator" title="Klik untuk beralih mode" aria-label="Mode Ujian">
@@ -220,6 +480,210 @@
       </footer>
     </section>
 
+    <!-- ================= VIEW 3: TAHAP MENGHAFAL KATA (STUDY PHASE) ================= -->
+    <section class="view-section" id="view-memory-study" aria-label="Tahap Menghafal Kategori &amp; Kata">
+      <!-- Header Menghafal -->
+      <header class="app-header header-memory-study">
+        <div class="header-left">
+          <span class="badge-interactive badge-study">Tahap 1: Menghafal</span>
+          <h1 class="app-title">PSIKOTES HAFALAN KATA</h1>
+        </div>
+        <div class="header-right">
+          <button class="btn-cancel-test" id="btn-cancel-study" title="Kembali ke Menu Utama"
+            aria-label="Kembali ke Menu Utama">
+            <span>❌</span> Menu Utama
+          </button>
+          <button class="icon-btn btn-toggle-sound" title="Toggle Suara" aria-label="Toggle Suara">🔊</button>
+        </div>
+      </header>
+
+      <div class="study-container">
+        <!-- Banner Petunjuk -->
+        <div class="study-instruction-banner">
+          <div class="inst-icon">⏱️</div>
+          <div class="inst-text">
+            <p>Anda diberi waktu selama <strong id="study-time-desc">lima menit</strong> untuk menghafal kategori dan
+              kata-kata dibawah ini:</p>
+            <p class="inst-highlight">Hafalkan dari sekarang!</p>
+          </div>
+        </div>
+
+        <!-- Timer Bar Menghafal -->
+        <div class="study-timer-container">
+          <div class="study-timer-header">
+            <span class="study-timer-title">Sisa Waktu Menghafal:</span>
+            <span class="study-timer-digits" id="study-timer-display">05:00</span>
+          </div>
+          <div class="study-progress-track">
+            <div class="study-progress-fill" id="study-progress-fill"></div>
+          </div>
+        </div>
+
+        <!-- Lembar Hafalan Kata (Desain Otentik & Elegan) -->
+        <div class="memory-sheet-card" id="memory-sheet-card">
+          <div class="sheet-top-label">
+            <span class="sheet-title-text">LEMBAR HAFALAN KATA</span>
+            <span class="sheet-sub-text">IST Subtes Merkaufgaben</span>
+          </div>
+
+          <div class="memory-categories-list" id="memory-categories-list">
+            <!-- Dinamis dirender melalui JavaScript sesuai Paket Kata -->
+          </div>
+        </div>
+
+        <!-- Tips Mnemonic Cepat -->
+        <div class="memory-tips-card">
+          <span class="tips-icon">💡</span>
+          <div class="tips-body">
+            <strong>Kunci Rahasia Psikotes:</strong> Setiap kata berawalan huruf unik dari alfabet (A - Z). Pada tahap
+            tes, lembar ini akan ditutup dan Anda akan ditanya kategori kata dari huruf awalannya!
+          </div>
+        </div>
+
+        <!-- Tombol Selesai Menghafal & Mulai Soal -->
+        <button class="btn-start-simulation btn-start-memory-test" id="btn-finish-study"
+          aria-label="Tutup Lembar dan Mulai Pengerjaan Soal">
+          <span class="btn-start-title">🔒 Tutup Lembar &amp; Mulai Jawab Soal! ➔</span>
+          <span class="btn-start-hint">[Tekan Spasi atau Klik untuk Langsung Ujian]</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ================= VIEW 4: TAHAP PENGERJAAN SOAL HAFALAN KATA (TEST PHASE) ================= -->
+    <section class="view-section" id="view-memory-test" aria-label="Tahap Pengerjaan Soal Hafalan">
+      <!-- Header Ujian Hafalan -->
+      <header class="app-header header-memory-test">
+        <div class="header-left">
+          <span class="badge-interactive badge-testing">Tahap 2: Pengerjaan Soal</span>
+          <h1 class="app-title">PSIKOTES HAFALAN KATA</h1>
+        </div>
+        <div class="header-right">
+          <button class="btn-cancel-test" id="btn-cancel-memory-test" title="Batalkan Tes dan Kembali ke Menu Utama"
+            aria-label="Batalkan Tes">
+            <span>❌</span> Batalkan Tes
+          </button>
+          <button class="icon-btn btn-toggle-sound" title="Toggle Suara" aria-label="Toggle Suara">🔊</button>
+        </div>
+      </header>
+
+      <!-- Banner Petunjuk Ujian -->
+      <div class="memory-test-strip">
+        <span>Tutup lembar hafalan sebelumnya dan jawablah pertanyaan di bawah ini berdasarkan kata yang sudah anda
+          hafal tadi.</span>
+      </div>
+
+      <!-- Status Bar (Question & Timer) -->
+      <section class="status-bar" aria-label="Status Ujian Hafalan">
+        <div class="question-counter-badge" id="mem-question-counter">Soal 1 / 20</div>
+        <div class="timer-box" id="mem-timer-box">
+          <span>Sisa Waktu:</span>
+          <span class="timer-val" id="mem-timer-val">8.0s</span>
+        </div>
+      </section>
+
+      <!-- Progress Bar Timer Per Soal -->
+      <div class="progress-container" aria-hidden="true" id="mem-progress-container">
+        <div class="progress-bar-timer" id="mem-timer-progress-bar"></div>
+      </div>
+
+      <!-- Area Soal Hafalan Kata -->
+      <div class="memory-question-container" id="mem-question-body">
+        <div class="memory-question-card">
+          <div class="mem-q-badge" id="mem-q-badge">Pertanyaan 1</div>
+          <h2 class="mem-q-sentence" id="mem-q-sentence">
+            Kata yang berawalan huruf <span class="mem-q-letter" id="mem-q-letter">A</span> termasuk dalam kategori.....
+          </h2>
+        </div>
+
+        <!-- 5 Pilihan Kategori (a. Bunga, b. Perkakas, c. Burung, d. Kesenian, e. Binatang) -->
+        <div class="memory-options-grid" id="memory-options-container" role="group" aria-label="Pilihan Kategori">
+          <!-- Dinamis dirender melalui JavaScript -->
+        </div>
+      </div>
+
+      <!-- Bottom Hints & Quick Stats -->
+      <footer class="bottom-bar">
+        <div class="shortcut-info">
+          <span>Pintasan:</span>
+          <span class="key-tag">A - E</span> atau <span class="key-tag">1 - 5</span>
+        </div>
+        <div class="quick-stats">
+          <span class="stat-item correct">Benar: <strong id="mem-stat-correct">0</strong></span>
+          <span class="stat-item wrong">Salah: <strong id="mem-stat-wrong">0</strong></span>
+        </div>
+      </footer>
+    </section>
+
+    <!-- ================= VIEW 5: TES KEMAMPUAN VERBAL (TEST PHASE) ================= -->
+    <section class="view-section" id="view-verbal-test" aria-label="Area Pengerjaan Tes Kemampuan Verbal">
+      <!-- Header Ujian Verbal -->
+      <header class="app-header header-verbal-test">
+        <div class="header-left">
+          <span class="badge-interactive badge-verbal" id="verbal-header-badge">Tes Verbal</span>
+          <h1 class="app-title">TES KEMAMPUAN VERBAL</h1>
+        </div>
+        <div class="header-right">
+          <button class="btn-cancel-test" id="btn-cancel-verbal-test" title="Batalkan Tes dan Kembali ke Menu Utama"
+            aria-label="Batalkan Tes">
+            <span>❌</span> Batalkan Tes
+          </button>
+          <button class="icon-btn btn-toggle-sound" title="Toggle Suara" aria-label="Toggle Suara">🔊</button>
+        </div>
+      </header>
+
+      <!-- Banner Subtes & Petunjuk -->
+      <div class="verbal-subtest-strip" id="verbal-subtest-banner">
+        <span class="verbal-type-pill" id="verbal-subtest-badge">Analogi Kata</span>
+        <span class="verbal-instruction-text" id="verbal-subtest-instruction">Pilihlah jawaban yang memiliki hubungan
+          analogi paling sesuai.</span>
+      </div>
+
+      <!-- Status Bar (Question & Timer) -->
+      <section class="status-bar" aria-label="Status Ujian Verbal">
+        <div class="question-counter-badge" id="verbal-question-counter">Soal 1 / 8</div>
+        <div class="timer-box" id="verbal-timer-box">
+          <span>Sisa Waktu:</span>
+          <span class="timer-val" id="verbal-timer-val">15.0s</span>
+        </div>
+      </section>
+
+      <!-- Progress Bar Timer Per Soal -->
+      <div class="progress-container" aria-hidden="true" id="verbal-progress-container">
+        <div class="progress-bar-timer progress-bar-emerald" id="verbal-timer-progress-bar"></div>
+      </div>
+
+      <!-- Area Soal Verbal -->
+      <div class="verbal-test-container" id="verbal-question-body">
+        <div class="verbal-question-card" id="verbal-question-card">
+          <div class="verbal-q-top-row">
+            <span class="verbal-q-number" id="verbal-q-number">Soal 1</span>
+            <span class="verbal-category-tag" id="verbal-category-tag">Analogi Hubungan Kata</span>
+          </div>
+
+          <div class="verbal-prompt-display" id="verbal-prompt-display">
+            <!-- Contoh: Mobil - Bensin = Pelari - .... -->
+          </div>
+        </div>
+
+        <!-- 4 Pilihan Jawaban (a, b, c, d) -->
+        <div class="verbal-options-grid" id="verbal-options-container" role="group" aria-label="Pilihan Jawaban Verbal">
+          <!-- Dinamis dirender melalui JavaScript -->
+        </div>
+      </div>
+
+      <!-- Bottom Hints & Quick Stats -->
+      <footer class="bottom-bar">
+        <div class="shortcut-info">
+          <span>Pintasan:</span>
+          <span class="key-tag">A - D</span> atau <span class="key-tag">1 - 4</span>
+        </div>
+        <div class="quick-stats">
+          <span class="stat-item correct">Benar: <strong id="verbal-stat-correct">0</strong></span>
+          <span class="stat-item wrong">Salah: <strong id="verbal-stat-wrong">0</strong></span>
+        </div>
+      </footer>
+    </section>
+
   </main>
 
   <!-- Settings Modal -->
@@ -233,7 +697,7 @@
       <div class="modal-body">
         <!-- Jumlah Soal -->
         <div class="form-group">
-          <label>Jumlah Soal</label>
+          <label>Jumlah Soal Ketelitian</label>
           <div class="option-pills">
             <label class="pill-radio"><input type="radio" name="q-count" value="5" checked><span>5 Soal</span></label>
             <label class="pill-radio"><input type="radio" name="q-count" value="10"><span>10 Soal</span></label>
@@ -250,7 +714,8 @@
           </label>
           <div class="option-pills">
             <label class="pill-radio"><input type="radio" name="q-time" value="1.5"><span>1.5 Detik</span></label>
-            <label class="pill-radio"><input type="radio" name="q-time" value="2.0" checked><span>2.0 Detik (Standar)</span></label>
+            <label class="pill-radio"><input type="radio" name="q-time" value="2.0" checked><span>2.0 Detik
+                (Standar)</span></label>
             <label class="pill-radio"><input type="radio" name="q-time" value="3.0"><span>3.0 Detik</span></label>
             <label class="pill-radio"><input type="radio" name="q-time" value="5.0"><span>5.0 Detik</span></label>
           </div>
@@ -258,9 +723,11 @@
           <div class="custom-time-wrapper">
             <div class="custom-time-slider-row">
               <span class="custom-time-badge">Atur Bebas:</span>
-              <input type="range" id="settings-custom-time-slider" min="1" max="30" step="0.5" value="2.0" class="custom-slider" aria-label="Slider Waktu Pengerjaan">
+              <input type="range" id="settings-custom-time-slider" min="1" max="30" step="0.5" value="2.0"
+                class="custom-slider" aria-label="Slider Waktu Pengerjaan">
               <div class="custom-time-input-box">
-                <input type="number" id="settings-custom-time-input" min="1" max="30" step="0.5" value="2.0" aria-label="Input Detik">
+                <input type="number" id="settings-custom-time-input" min="1" max="30" step="0.5" value="2.0"
+                  aria-label="Input Detik">
                 <span>detik</span>
               </div>
             </div>
@@ -271,16 +738,19 @@
           </div>
         </div>
 
-
         <!-- Tipe Data -->
         <div class="form-group">
           <label>Jenis Data Perbandingan</label>
           <div class="option-pills">
-            <label class="pill-radio"><input type="radio" name="q-type" value="numeric" checked><span>Angka Saja (0-9)</span></label>
-            <label class="pill-radio"><input type="radio" name="q-type" value="alphanumeric"><span>Alfanumerik (Kode/ID)</span></label>
+            <label class="pill-radio"><input type="radio" name="q-type" value="numeric" checked><span>Angka Saja
+                (0-9)</span></label>
+            <label class="pill-radio"><input type="radio" name="q-type" value="alphanumeric"><span>Alfanumerik
+                (Kode/ID)</span></label>
             <label class="pill-radio"><input type="radio" name="q-type" value="letters"><span>Huruf Acak</span></label>
-            <label class="pill-radio"><input type="radio" name="q-type" value="verbal"><span>Nama &amp; Instansi</span></label>
-            <label class="pill-radio"><input type="radio" name="q-type" value="mixed"><span>Campuran (Realistis)</span></label>
+            <label class="pill-radio"><input type="radio" name="q-type" value="verbal"><span>Nama &amp;
+                Instansi</span></label>
+            <label class="pill-radio"><input type="radio" name="q-type" value="mixed"><span>Campuran
+                (Realistis)</span></label>
           </div>
         </div>
 
@@ -288,9 +758,12 @@
         <div class="form-group">
           <label>Panjang Karakter / Kesulitan</label>
           <div class="option-pills">
-            <label class="pill-radio"><input type="radio" name="q-diff" value="easy"><span>Mudah (5-7 digit)</span></label>
-            <label class="pill-radio"><input type="radio" name="q-diff" value="medium" checked><span>Sedang (8-10 digit)</span></label>
-            <label class="pill-radio"><input type="radio" name="q-diff" value="hard"><span>Sulit (11-14 digit)</span></label>
+            <label class="pill-radio"><input type="radio" name="q-diff" value="easy"><span>Mudah (5-7
+                digit)</span></label>
+            <label class="pill-radio"><input type="radio" name="q-diff" value="medium" checked><span>Sedang (8-10
+                digit)</span></label>
+            <label class="pill-radio"><input type="radio" name="q-diff" value="hard"><span>Sulit (11-14
+                digit)</span></label>
           </div>
         </div>
       </div>
@@ -305,7 +778,7 @@
   <div class="overlay" id="modal-results" role="dialog" aria-modal="true" aria-labelledby="results-heading">
     <div class="modal-content">
       <header class="modal-header">
-        <h2 id="results-heading">Hasil Evaluasi Ketelitian Data</h2>
+        <h2 id="results-heading">Hasil Evaluasi Simulasi</h2>
         <button class="btn-close" id="btn-close-results" aria-label="Tutup Hasil">&times;</button>
       </header>
 
@@ -338,8 +811,9 @@
 
         <section class="review-section">
           <h3>
-            <span>Daftar Review Soal &amp; Analisis Kesalahan</span>
-            <small style="font-weight:normal; font-size:0.75rem; color:#64748b;">(Karakter beda disorot merah)</small>
+            <span id="review-section-title">Daftar Review Soal &amp; Analisis</span>
+            <small style="font-weight:normal; font-size:0.75rem; color:#64748b;" id="review-section-subtitle">(Detail
+              kunci &amp; jawaban)</small>
           </h3>
           <div class="review-list" id="review-list"></div>
         </section>
@@ -347,8 +821,30 @@
 
       <footer class="modal-footer">
         <button class="btn-secondary" id="btn-result-home">🏠 Menu Utama</button>
+        <button class="btn-secondary" id="btn-view-sheet" style="display:none;">📖 Lembar Hafalan</button>
         <button class="btn-secondary" id="btn-retry-wrong" style="display:none;">Ulangi yang Salah</button>
         <button class="btn-primary" id="btn-restart">Mulai Simulasi Baru</button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Modal View Lembar Hafalan (Untuk Review Setelah Tes Hafalan Kata) -->
+  <div class="overlay" id="modal-memory-sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-modal-heading">
+    <div class="modal-content" style="max-width: 560px;">
+      <header class="modal-header">
+        <h2 id="sheet-modal-heading">📖 Lembar Hafalan Kata</h2>
+        <button class="btn-close" id="btn-close-memory-sheet" aria-label="Tutup Lembar Hafalan">&times;</button>
+      </header>
+      <div class="modal-body">
+        <p style="font-size: 0.88rem; color: #64748b; margin-bottom: 14px;">
+          Gunakan daftar ini untuk mengevaluasi kata dan huruf awalan yang keliru Anda jawab saat tes:
+        </p>
+        <div class="memory-sheet-card" id="modal-sheet-content">
+          <!-- Isi lembar hafalan dirender di sini -->
+        </div>
+      </div>
+      <footer class="modal-footer">
+        <button class="btn-primary" id="btn-close-modal-sheet">Tutup</button>
       </footer>
     </div>
   </div>
@@ -364,14 +860,16 @@
         </p>
         <div style="display: flex; gap: 12px; justify-content: center;">
           <button class="btn-secondary" id="btn-cancel-no" style="flex: 1; padding: 12px 16px;">Lanjutkan Tes</button>
-          <button class="btn-primary" id="btn-cancel-yes" style="flex: 1; padding: 12px 16px; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">Ya, Batalkan</button>
+          <button class="btn-primary" id="btn-cancel-yes"
+            style="flex: 1; padding: 12px 16px; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">Ya,
+            Batalkan</button>
         </div>
       </div>
     </div>
   </div>
 
-
   <!-- JavaScript -->
   <script type="module" src="app.js"></script>
 </body>
+
 </html>
